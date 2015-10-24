@@ -50,5 +50,101 @@ CREATE TABLE IF NOT EXISTS `categories` (
   `modified` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `modified_by` int(10) unsigned NOT NULL DEFAULT '0',
   `version` int(10) unsigned NOT NULL DEFAULT '1',
-  PRIMARY KEY (`id`)
+  UNIQUE KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `sync_terms` (
+  `term_key` varchar(50) NOT NULL,
+  `term_name` varchar(75) NOT NULL,
+  `row_status` varchar(24) NOT NULL,
+  `start_date` varchar(24) NOT NULL,
+  `end_date` varchar(24) NOT NULL,
+  `duration` varchar(30) NOT NULL,
+  `available_ind` varchar(3) NOT NULL,
+  UNIQUE KEY `term_key` (`term_key`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `sync_persons` (
+  `pidm` int(11) NOT NULL,
+  `term_key` varchar(50) NOT NULL,
+  `username` varchar(75) NOT NULL,
+  `password` varchar(32) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `is_employee` tinyint(3) NOT NULL,
+  `sis_id` varchar(100) NOT NULL,
+  `sis_first_name` varchar(150) NOT NULL,
+  `sis_last_name` varchar(150) NOT NULL,
+  `row_status` varchar(24) NOT NULL,
+  `new_data_source_key` varchar(24) NOT NULL,
+  `system_role` varchar(54) NOT NULL,
+  UNIQUE KEY `pidm` (`pidm`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `sync_courses` (
+  `course_key` varchar(50) NOT NULL,
+  `course_id` varchar(50) NOT NULL,
+  `course_name` varchar(255) NOT NULL,
+  `start_date` varchar(24) NOT NULL,
+  `end_date` varchar(24) NOT NULL,
+  `duration` varchar(30) NOT NULL,
+  `master_course_key` varchar(50) NOT NULL,
+  `row_status` varchar(24) NOT NULL,
+  `allow_guest_ind` varchar(3) NOT NULL,
+  `available_ind` varchar(3) NOT NULL,
+  `catalog_ind` varchar(3) NOT NULL,
+  `desc_page` varchar(3) NOT NULL,
+  `description` varchar(4000) NOT NULL,
+  `term_key` varchar(50) NOT NULL,
+  `subject` varchar(50) NOT NULL,
+  `course_number` varchar(50) NOT NULL,
+  `division` varchar(50) NOT NULL,
+  `department` varchar(50) NOT NULL,
+  `term_code` int(10) NOT NULL,
+  `crn` int(10) NOT NULL,
+  `enrollment` int(10) NOT NULL,
+  `available` int(10) NOT NULL,
+  UNIQUE KEY `term_key` (`term_code`,`crn`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `sync_courses_xlst` (
+  `course_key` varchar(50) NOT NULL,
+  `course_id` varchar(50) NOT NULL,
+  `course_name` varchar(255) NOT NULL,
+  `start_date` varchar(24) NOT NULL,
+  `end_date` varchar(24) NOT NULL,
+  `duration` varchar(30) NOT NULL,
+  `row_status` varchar(24) NOT NULL,
+  `allow_guest_ind` varchar(3) NOT NULL,
+  `available_ind` varchar(3) NOT NULL,
+  `catalog_ind` varchar(3) NOT NULL,
+  `desc_page` varchar(3) NOT NULL,
+  `description` varchar(4000) NOT NULL,
+  `term_key` varchar(50) NOT NULL,
+  `subject` varchar(50) NOT NULL,
+  `course_number` varchar(50) NOT NULL,
+  `division` varchar(50) NOT NULL,
+  `department` varchar(50) NOT NULL,
+  `term_code` int(10) NOT NULL,
+  `primary_crn` int(10) NOT NULL,
+  `crosslisted_crns` varchar(300) NOT NULL,
+  `enrollment` int(10) NOT NULL,
+  `available` int(10) NOT NULL,
+  `manually_created` tinyint(3) NOT NULL,
+  UNIQUE KEY `course_key` (`course_key`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `sync_coursememberships` (
+  `course_key` varchar(36) NOT NULL,
+  `term_key` varchar(50) NOT NULL,
+  `crn` int(10) NOT NULL,
+  `spriden_id` varchar(27) NOT NULL,
+  `pidm` int(11) NOT NULL,
+  `role` varchar(54) NOT NULL,
+  `row_status` varchar(24) NOT NULL,
+  `available_ind` varchar(3) NOT NULL,
+  `enrollment_date` varchar(24) NOT NULL,
+  `username` varchar(75) NOT NULL,
+  `student_first_name` varchar(150) NOT NULL,
+  `student_last_name` varchar(150) NOT NULL,
+  UNIQUE KEY `pidm` (`pidm`,`crn`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
