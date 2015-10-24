@@ -148,3 +148,31 @@ CREATE TABLE IF NOT EXISTS `sync_coursememberships` (
   `student_last_name` varchar(150) NOT NULL,
   UNIQUE KEY `pidm` (`pidm`,`crn`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `seating_chart` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `course_id` varchar(50) NOT NULL,
+  `rows` int(10) unsigned NOT NULL DEFAULT '0',
+  `seats_per_row` int(10) unsigned NOT NULL DEFAULT '0',
+  `title` varchar(255) NOT NULL DEFAULT '',
+  `metadata` mediumtext NOT NULL,
+  `created` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `created_by` int(10) unsigned NOT NULL DEFAULT '0',
+  `modified` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `modified_by` int(10) unsigned NOT NULL DEFAULT '0',
+  UNIQUE KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `attendance` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `sis_id` int(10) unsigned NOT NULL DEFAULT '0',
+  `course_id` varchar(50) NOT NULL,
+  `meeting_date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `attendance_status` varchar(255) NOT NULL DEFAULT '',
+  `attendance_note` varchar(2048) NOT NULL,
+  `created` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `created_by` int(10) unsigned NOT NULL DEFAULT '0',
+  `modified` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `modified_by` int(10) unsigned NOT NULL DEFAULT '0',
+  UNIQUE KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
