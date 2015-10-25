@@ -1,6 +1,7 @@
 {
     "require": {
         "slim/slim": "^3.@RC",
-        "joomla/database": "^1.2"
+        "joomla/database": "^1.2",
+        "aura/session": "^2.0"
     }
 }
