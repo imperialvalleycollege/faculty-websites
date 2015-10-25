@@ -368,6 +368,10 @@
                                 <li>
                                     <a href="login">Login Page</a>
                                 </li>
+
+                                <li>
+                                    <a href="manual-submission">Manual File Submission</a>
+                                </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
@@ -385,7 +389,6 @@
 		    <?php if (!empty($segment->getFlash('message'))) : ?>
         	<div class="row">
                 <div class="col-lg-12">
-                	<div class="center-block">
                 	<?php if (!empty($segment->getFlash('message-status'))) : ?>
 						<div class="alert alert-message alert-<?= $segment->getFlash('message-status'); ?> alert-dismissable">
 					<?php else : ?>
@@ -393,7 +396,6 @@
 					<?php endif; ?>
 						<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 		                <?php echo $segment->getFlash('message'); ?>
-		            </div>
 		            </div>
 		        </div>
 			</div>

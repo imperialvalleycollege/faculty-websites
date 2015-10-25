@@ -94,3 +94,43 @@ $app->post('/authenticate', function (ServerRequestInterface $request, ResponseI
 	}
 
 });
+
+$app->get('/manual-submission', function (ServerRequestInterface $request, ResponseInterface $response) {
+	ob_start();
+    include 'code/templates/admin2_submission.php';
+
+	$response->write(ob_get_clean());
+    return $response;
+})->setName('manual-submission');
+
+$app->group('/api/1.0', function () {
+    $this->post('/submission', function (ServerRequestInterface $request, ResponseInterface $response) {
+		$segment = $this->session->getSegment('app');
+
+		if (!empty($_POST['organization']) && !empty($_POST['api_key']))
+		{
+			$query = $this->db->getQuery(true);
+
+			$query->select('*');
+			$query->from('api');
+			$query->where('organization = ' . $this->db->quote($_POST['organization']));
+			$query->where('api_key = ' . $this->db->quote($_POST['api_key']));
+
+			$this->db->setQuery($query);
+
+			$row = $this->db->loadObject();
+
+			if (!empty($row))
+			{
+				// Handle File Upload Placement:
+				$response->write('Success!<br />' . 'Org: ' . $_POST['organization'] . ' API Key: ' . $_POST['api_key']);
+			}
+			else
+			{
+				$segment->setFlash('message', 'Bad Organization Name or API Key Provided.');
+				$segment->setFlash('message-status', 'danger');
+				return $response->withRedirect($this->router->pathFor('manual-submission'));
+			}
+		}
+	});
+});

@@ -1,3 +1,13 @@
+CREATE TABLE IF NOT EXISTS `api` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `organization` varchar(255) NOT NULL DEFAULT '',
+  `api_key` varchar(255) NOT NULL DEFAULT '',
+  `block` tinyint(4) NOT NULL DEFAULT '0',
+  `created` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  UNIQUE KEY (`id`),
+  UNIQUE KEY `organizationApiKey` (`organization`, `api_key`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ;
+
 CREATE TABLE IF NOT EXISTS `users` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `first_name` varchar(255) NOT NULL DEFAULT '',
