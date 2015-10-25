@@ -247,7 +247,7 @@
                 </li>
                 <!-- /.dropdown -->
                 <?php
-					$segment = $this->session->getSegment('App\Authenticate');
+					$segment = $this->session->getSegment('app');
                 ?>
                 <?php if (!empty($segment->get('authenticated'))) : ?>
                 <li class="dropdown">
@@ -379,6 +379,25 @@
         </nav>
 
         <div id="page-wrapper">
+        	<?php
+				$segment = $this->session->getSegment('app');
+		    ?>
+		    <?php if (!empty($segment->getFlash('message'))) : ?>
+        	<div class="row">
+                <div class="col-lg-12">
+                	<div class="center-block">
+                	<?php if (!empty($segment->getFlash('message-status'))) : ?>
+						<div class="alert alert-message alert-<?= $segment->getFlash('message-status'); ?> alert-dismissable">
+					<?php else : ?>
+						<div class="alert alert-message alert-warning alert-dismissable">
+					<?php endif; ?>
+						<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+		                <?php echo $segment->getFlash('message'); ?>
+		            </div>
+		            </div>
+		        </div>
+			</div>
+			<?php endif; ?>
             <div class="row">
                 <div class="col-lg-12">
                     <h1 class="page-header"><?= $title;?></h1>

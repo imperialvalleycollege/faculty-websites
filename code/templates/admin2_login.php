@@ -42,6 +42,19 @@
                         <h3 class="panel-title">Please Sign In</h3>
                     </div>
                     <div class="panel-body">
+                    	<?php
+							$segment = $this->session->getSegment('app');
+		                ?>
+		                <?php if (!empty($segment->getFlash('message'))) : ?>
+							<?php if (!empty($segment->getFlash('message-status'))) : ?>
+								<div class="alert alert-message-login alert-<?= $segment->getFlash('message-status'); ?> alert-dismissable">
+							<?php else : ?>
+								<div class="alert alert-message-login alert-warning alert-dismissable">
+							<?php endif; ?>
+								<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+				                <?php echo $segment->getFlash('message'); ?>
+				            </div>
+		                <?php endif; ?>
                         <form role="form" method="POST" action="authenticate">
                             <fieldset>
                                 <div class="form-group">
