@@ -2,6 +2,8 @@
     "require": {
         "slim/slim": "^3.@RC",
         "joomla/database": "^1.2",
-        "aura/session": "^2.0"
+        "aura/session": "^2.0",
+        "league/flysystem": "^1.0",
+        "aura/cli": "^2.1"
     }
 }

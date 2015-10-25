@@ -1,6 +1,8 @@
 <?php
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\ResponseInterface;
+use League\Flysystem\Filesystem;
+use League\Flysystem\Adapter\Local;
 
 $app->get('/', function (ServerRequestInterface $request, ResponseInterface $response) {
 	$title = 'Homepage';
@@ -122,8 +124,42 @@ $app->group('/api/1.0', function () {
 
 			if (!empty($row))
 			{
-				// Handle File Upload Placement:
-				$response->write('Success!<br />' . 'Org: ' . $_POST['organization'] . ' API Key: ' . $_POST['api_key']);
+				if (isset($_FILES) && $_FILES['submission_file']['error'] === UPLOAD_ERR_OK)
+				{
+					// Handle File Upload Placement:
+
+					// Create instance of Flysystem:
+					$adapter = new Local(__DIR__.'/../files');
+					$filesystem = new Filesystem($adapter);
+
+
+					$stream = fopen($_FILES['submission_file']['tmp_name'], 'r+');
+					$filename = date('Y-m-d_H-i-s') . '_' . $_POST['organization'] . '.txt';
+					$result = $filesystem->writeStream('/' . $_POST['organization'] . '/' . $filename, $stream);
+					fclose($stream);
+
+					$fileUploadString = '';
+					if ($result)
+					{
+						$mimetype = $filesystem->getMimetype('/' . $_POST['organization'] . '/' . $filename);
+						if ($mimetype === "text/plain")
+						{
+							$fileUploadString = 'Successfully Uploaded File!<br />';
+						}
+						else
+						{
+							$filesystem->delete('/' . $_POST['organization'] . '/' . $filename);
+							$fileUploadString = 'Deleted File...Incorrect Filetype!<br />';
+						}
+					}
+					$response->write($fileUploadString . 'Success!<br />' . 'Org: ' . $_POST['organization'] . ' API Key: ' . $_POST['api_key']);
+				}
+				else
+				{
+					$segment->setFlash('message', 'Bad File Provided.');
+					$segment->setFlash('message-status', 'danger');
+					return $response->withRedirect($this->router->pathFor('manual-submission'));
+				}
 			}
 			else
 			{

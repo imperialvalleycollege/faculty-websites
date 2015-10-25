@@ -4,9 +4,69 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "fd342c5dd211b83baa2d299a887763d1",
-    "content-hash": "c965a68a98065cd1f412efcb820cb9f3",
+    "hash": "ec8ecf3e052a9c113836363e8ef4f028",
+    "content-hash": "334b0e56c69479ebab9c2c399be852e3",
     "packages": [
+        {
+            "name": "aura/cli",
+            "version": "2.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/auraphp/Aura.Cli.git",
+                "reference": "b550cd79beff793ec5feeea248ccd4ba537c8603"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/auraphp/Aura.Cli/zipball/b550cd79beff793ec5feeea248ccd4ba537c8603",
+                "reference": "b550cd79beff793ec5feeea248ccd4ba537c8603",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "aura/di": "~2.0"
+            },
+            "type": "library",
+            "extra": {
+                "aura": {
+                    "type": "library",
+                    "config": {
+                        "common": "Aura\\Cli\\_Config\\Common"
+                    }
+                },
+                "branch-alias": {
+                    "dev-develop-2": "2.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Aura\\Cli\\": "src/",
+                    "Aura\\Cli\\_Config\\": "config/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-2-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Aura.Cli Contributors",
+                    "homepage": "https://github.com/auraphp/Aura.Cli/contributors"
+                }
+            ],
+            "description": "Provides the equivalent of request (Context) and response (Stdio) classes for a command line environment, including Getopt support.",
+            "homepage": "https://github.com/auraphp/Aura.Cli",
+            "keywords": [
+                "cli",
+                "command",
+                "command line",
+                "getopt",
+                "options",
+                "stdio"
+            ],
+            "time": "2015-03-27 17:23:08"
+        },
         {
             "name": "aura/session",
             "version": "2.0.1",
@@ -146,6 +206,90 @@
                 "joomla"
             ],
             "time": "2015-03-08 21:23:52"
+        },
+        {
+            "name": "league/flysystem",
+            "version": "1.0.15",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/thephpleague/flysystem.git",
+                "reference": "31525caf9e8772683672fefd8a1ca0c0736020f4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/31525caf9e8772683672fefd8a1ca0c0736020f4",
+                "reference": "31525caf9e8772683672fefd8a1ca0c0736020f4",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "conflict": {
+                "league/flysystem-sftp": "<1.0.6"
+            },
+            "require-dev": {
+                "ext-fileinfo": "*",
+                "mockery/mockery": "~0.9",
+                "phpspec/phpspec": "^2.2",
+                "phpspec/prophecy-phpunit": "~1.0",
+                "phpunit/phpunit": "~4.1"
+            },
+            "suggest": {
+                "ext-fileinfo": "Required for MimeType",
+                "league/flysystem-aws-s3-v2": "Allows you to use S3 storage with AWS SDK v2",
+                "league/flysystem-aws-s3-v3": "Allows you to use S3 storage with AWS SDK v3",
+                "league/flysystem-azure": "Allows you to use Windows Azure Blob storage",
+                "league/flysystem-cached-adapter": "Flysystem adapter decorator for metadata caching",
+                "league/flysystem-copy": "Allows you to use Copy.com storage",
+                "league/flysystem-dropbox": "Allows you to use Dropbox storage",
+                "league/flysystem-eventable-filesystem": "Allows you to use EventableFilesystem",
+                "league/flysystem-rackspace": "Allows you to use Rackspace Cloud Files",
+                "league/flysystem-sftp": "Allows you to use SFTP server storage via phpseclib",
+                "league/flysystem-webdav": "Allows you to use WebDAV storage",
+                "league/flysystem-ziparchive": "Allows you to use ZipArchive adapter"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.1-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "League\\Flysystem\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Frank de Jonge",
+                    "email": "info@frenky.net"
+                }
+            ],
+            "description": "Filesystem abstraction: Many filesystems, one API.",
+            "keywords": [
+                "Cloud Files",
+                "WebDAV",
+                "abstraction",
+                "aws",
+                "cloud",
+                "copy.com",
+                "dropbox",
+                "file systems",
+                "files",
+                "filesystem",
+                "filesystems",
+                "ftp",
+                "rackspace",
+                "remote",
+                "s3",
+                "sftp",
+                "storage"
+            ],
+            "time": "2015-09-30 22:26:59"
         },
         {
             "name": "nikic/fast-route",
