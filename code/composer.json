@@ -1,5 +1,6 @@
 {
     "require": {
-        "slim/slim": "^3.@RC"
+        "slim/slim": "^3.@RC",
+        "joomla/database": "^1.2"
     }
 }

@@ -372,6 +372,15 @@
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
+
+            <?php if (isset($body)) : ?>
+            <div class="row">
+                <div class="col-lg-12">
+					<pre><?= $body;?></pre>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <?php endif; ?>
         </div>
         <!-- /#page-wrapper -->
 
