@@ -75,19 +75,19 @@ CREATE TABLE IF NOT EXISTS `sync_terms` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `sync_persons` (
-  `pidm` int(11) NOT NULL,
-  `term_key` varchar(50) NOT NULL,
-  `username` varchar(75) NOT NULL,
-  `password` varchar(32) NOT NULL,
-  `email` varchar(100) NOT NULL,
-  `is_employee` tinyint(3) NOT NULL,
+  `sis_internal_id` int(11) NOT NULL,
   `sis_id` varchar(100) NOT NULL,
+  `sis_username` varchar(75) NOT NULL,
+  `sis_password` varchar(75) NOT NULL,
+  `sis_email` varchar(100) NOT NULL,
   `sis_first_name` varchar(150) NOT NULL,
   `sis_last_name` varchar(150) NOT NULL,
+  `is_employee` tinyint(3) NOT NULL,
   `row_status` varchar(24) NOT NULL,
-  `new_data_source_key` varchar(24) NOT NULL,
   `system_role` varchar(54) NOT NULL,
-  UNIQUE KEY `pidm` (`pidm`)
+  `created` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `updated` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  UNIQUE KEY `sis_internal_id` (`sis_internal_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `sync_courses` (
@@ -157,6 +157,37 @@ CREATE TABLE IF NOT EXISTS `sync_coursememberships` (
   `student_first_name` varchar(150) NOT NULL,
   `student_last_name` varchar(150) NOT NULL,
   UNIQUE KEY `pidm` (`pidm`,`crn`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `sync_meetingtimes` (
+  `course_id` varchar(50) NOT NULL,
+  `term_code` int(10) NOT NULL,
+  `crn` int(10) NOT NULL,
+  `primary_schedule_code_ind` tinyint(4) NOT NULL,
+  `schedule_code` varchar(10) NOT NULL,
+  `schedule_code_long` varchar(200) NOT NULL,
+  `start_date` date NOT NULL,
+  `end_date` date NOT NULL,
+  `monday` varchar(4) NOT NULL,
+  `tuesday` varchar(4) NOT NULL,
+  `wednesday` varchar(4) NOT NULL,
+  `thursday` varchar(4) NOT NULL,
+  `friday` varchar(4) NOT NULL,
+  `saturday` varchar(4) NOT NULL,
+  `override_ind` varchar(20) NOT NULL,
+  `begin_time` time NOT NULL,
+  `end_time` time NOT NULL,
+  `building` varchar(200) NOT NULL,
+  `room` varchar(200) NOT NULL,
+  `units` decimal(10,2) NOT NULL,
+  `break_ind` varchar(10) NOT NULL,
+  `weekly_hours` decimal(10,2) NOT NULL,
+  `daily_hours` decimal(10,2) NOT NULL,
+  `total_hours` decimal(10,2) NOT NULL,
+  `last_sync_date` datetime NOT NULL,
+  `row_status` varchar(24) NOT NULL,
+  UNIQUE KEY `meetingtime_key` (`term_code`,`crn`,`schedule_code`,`monday`,`tuesday`,`wednesday`,`thursday`,`friday`,`saturday`,`override_ind`,`start_date`,`end_date`,`begin_time`,`end_time`,`building`,`room`),
+  ADD KEY `course_id` (`course_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `seating_chart` (
