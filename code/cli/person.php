@@ -52,8 +52,8 @@ foreach (new DirectoryIterator($filesFolder) as $fileInfo) {
     if ($fileInfo->isDir())
     {
 		$organization = $fileInfo->getFilename();
-
-		foreach (new DirectoryIterator($filesFolder . '/' . $organization) as $subFileInfo)
+		$organizationFolder = $filesFolder . '/' . $organization;
+		foreach (new DirectoryIterator($organizationFolder) as $subFileInfo)
 		{
 			if($subFileInfo->isDot()) continue;
 			$stdio->outln($subFileInfo->getFilename());
@@ -99,13 +99,19 @@ foreach (new DirectoryIterator($filesFolder) as $fileInfo) {
 				}
 
 			    fclose($handle);
+
+			    unlink($importFile);
 			}
 
 			//echo $contents;
 		}
+
+		rmdir($organizationFolder);
     }
 
 }
+
+
 
 $query = $db->getQuery(true);
 
