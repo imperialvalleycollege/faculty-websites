@@ -50,25 +50,28 @@ class Helper
 		return $currentDateTime;
 	}
 
-	public static function insertOrUpdate($table, $headers, $data)
+	public static function insertOrUpdate(\App\Import\ImportInterface $object)
 	{
 		$db = \App\Factory::getDbo();
 
 		$db->getQuery(true);
 
-		$fields = implode(',', \App\Database\Helper::quoteNames($headers));
-		$values = implode(',', \App\Database\Helper::quoteValues($data));
-		$setString = \App\Database\Helper::getSetString($headers, $data);
+		$organization = $db->quote($object->organization);
+		$fields = implode(',', \App\Database\Helper::quoteNames($object->headers));
+		$values = implode(',', \App\Database\Helper::quoteValues($object->data));
+		$setString = \App\Database\Helper::getSetString($object->headers, $object->data);
 		$currentDateTime = $db->quote(\App\Database\Helper::getCurrentDateTime());
 
 		$sql = <<<SQL
-		INSERT INTO $table (
+		INSERT INTO {$object->table} (
 			$fields,
+			organization,
 			created,
 			updated
 		)
 		VALUES (
 			$values,
+			{$organization},
 			$currentDateTime,
 			$currentDateTime
 		)

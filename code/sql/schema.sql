@@ -64,14 +64,14 @@ CREATE TABLE IF NOT EXISTS `categories` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `sync_terms` (
-  `term_key` varchar(50) NOT NULL,
-  `term_name` varchar(75) NOT NULL,
-  `row_status` varchar(24) NOT NULL,
-  `start_date` varchar(24) NOT NULL,
-  `end_date` varchar(24) NOT NULL,
-  `duration` varchar(30) NOT NULL,
-  `available_ind` varchar(3) NOT NULL,
-  UNIQUE KEY `term_key` (`term_key`)
+  `sis_term_key` varchar(50) NOT NULL,
+  `sis_term_name` varchar(75) NOT NULL,
+  `sis_term_start_date` varchar(24) NOT NULL,
+  `sis_term_end_date` varchar(24) NOT NULL,
+  `organization` varchar(255) NOT NULL DEFAULT '',
+  `created` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `updated` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  UNIQUE KEY `terms_idx` (`sis_term_key`, `organization`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `sync_persons` (
@@ -85,9 +85,10 @@ CREATE TABLE IF NOT EXISTS `sync_persons` (
   `is_employee` tinyint(3) NOT NULL,
   `row_status` varchar(24) NOT NULL,
   `system_role` varchar(54) NOT NULL,
+  `organization` varchar(255) NOT NULL DEFAULT '',
   `created` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `updated` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
-  UNIQUE KEY `sis_internal_id` (`sis_internal_id`)
+  UNIQUE KEY `persons_idx` (`sis_internal_id`, `organization`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `sync_courses` (

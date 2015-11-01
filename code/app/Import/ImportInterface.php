@@ -5,4 +5,6 @@ interface ImportInterface
 {
 	public function setHeaders();
 	public function setData();
+	public function setOrganization();
+	public function store();
 }

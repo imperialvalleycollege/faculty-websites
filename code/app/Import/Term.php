@@ -1,16 +1,17 @@
 <?php
 namespace App\Import;
 
-class Person implements ImportInterface
+class Term implements ImportInterface
 {
-	public $table = 'sync_persons';
+	public $table = 'sync_terms';
 	public $organization = '';
 	public $headers = array();
 	public $data = array();
-	public $key = 'sis_internal_id';
+	public $key = 'sis_term_key';
 
 	public function setHeaders($headers = array())
 	{
+
 		$this->headers = $headers;
 	}
 
