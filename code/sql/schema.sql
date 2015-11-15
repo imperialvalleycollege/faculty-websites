@@ -148,19 +148,17 @@ CREATE TABLE IF NOT EXISTS `sync_courses_xlst` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `sync_coursememberships` (
-  `course_key` varchar(36) NOT NULL,
-  `term_key` varchar(50) NOT NULL,
-  `crn` int(10) NOT NULL,
-  `spriden_id` varchar(27) NOT NULL,
-  `pidm` int(11) NOT NULL,
-  `role` varchar(54) NOT NULL,
+  `sis_course_id` varchar(50) NOT NULL,
+  `sis_term_key` varchar(50) NOT NULL,
+  `sis_crn` int(10) NOT NULL,
+  `sis_internal_id` int(11) NOT NULL,
+  `sis_role` varchar(54) NOT NULL,
   `row_status` varchar(24) NOT NULL,
-  `available_ind` varchar(3) NOT NULL,
-  `enrollment_date` varchar(24) NOT NULL,
-  `username` varchar(75) NOT NULL,
-  `student_first_name` varchar(150) NOT NULL,
-  `student_last_name` varchar(150) NOT NULL,
-  UNIQUE KEY `pidm` (`pidm`,`crn`)
+  `organization` varchar(255) NOT NULL DEFAULT '',
+  `created` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `updated` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  UNIQUE KEY `course_person_idx` (`sis_course_id`,`sis_internal_id`),
+  UNIQUE KEY `course_person_alt_idx` (`sis_term_key`,`sis_crn`,`sis_internal_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `sync_meetingtimes` (
