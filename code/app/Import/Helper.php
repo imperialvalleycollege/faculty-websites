@@ -23,7 +23,6 @@ class Helper
 			case self::COURSE_EXPECTED_HEADER:
 				return 'Course';
 			case self::MEETINGTIME_EXPECTED_HEADER:
-				echo "Meetingtime";
 				return 'Meetingtime';
 			case self::PERSON_EXPECTED_HEADER:
 				return 'Person';
