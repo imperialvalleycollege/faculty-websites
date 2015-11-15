@@ -1,6 +1,6 @@
 <?php
 // Include the autoloader (which helps to autoload PHP classes on the fly):
-require '../vendor/autoload.php';
+require dirname(__DIR__).'/vendor/autoload.php';
 
 use Aura\Cli\CliFactory;
 use Aura\Cli\Status;
