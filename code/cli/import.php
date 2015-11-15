@@ -24,6 +24,9 @@ foreach (new DirectoryIterator($filesFolder) as $fileInfo) {
 		{
 			if($subFileInfo->isDot()) continue;
 
+			// Record Start Time:
+			$startTime = microtime(true);
+
 			$importFile = $subFileInfo->getPath() . '/' . $subFileInfo->getFilename();
 
 			if(($handle = fopen($importFile, 'r')) !== false)
@@ -72,6 +75,11 @@ foreach (new DirectoryIterator($filesFolder) as $fileInfo) {
 			}
 
 			//echo $contents;
+
+			$endTime = microtime(true);
+			$elapsedTime = $endTime - $startTime;
+
+			$stdio->outln("Processed file in $elapsedTime seconds");
 		}
 
 		rmdir($organizationFolder);
