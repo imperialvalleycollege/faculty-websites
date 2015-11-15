@@ -11,7 +11,6 @@ class Term implements ImportInterface
 
 	public function setHeaders($headers = array())
 	{
-
 		$this->headers = $headers;
 	}
 
