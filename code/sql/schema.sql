@@ -66,8 +66,8 @@ CREATE TABLE IF NOT EXISTS `categories` (
 CREATE TABLE IF NOT EXISTS `sync_terms` (
   `sis_term_key` varchar(50) NOT NULL,
   `sis_term_name` varchar(75) NOT NULL,
-  `sis_term_start_date` varchar(24) NOT NULL,
-  `sis_term_end_date` varchar(24) NOT NULL,
+  `sis_term_start_date` date NOT NULL,
+  `sis_term_end_date` date NOT NULL,
   `organization` varchar(255) NOT NULL DEFAULT '',
   `created` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `updated` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
