@@ -9,25 +9,26 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title><?= $title ?></title>
+    <title><?= $this->data->title ?></title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="assets/templates/admin2/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="<?php echo \App\Config::templateBasePath(); ?>assets/templates/admin2/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- MetisMenu CSS -->
-    <link href="assets/templates/admin2/bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
+    <link href="<?php echo \App\Config::templateBasePath(); ?>assets/templates/admin2/bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
 
     <!-- Timeline CSS -->
-    <link href="assets/templates/admin2/dist/css/timeline.css" rel="stylesheet">
+    <link href="<?php echo \App\Config::templateBasePath(); ?>assets/templates/admin2/dist/css/timeline.css" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link href="assets/templates/admin2/dist/css/sb-admin-2.css" rel="stylesheet">
+    <link href="<?php echo \App\Config::templateBasePath(); ?>assets/templates/admin2/dist/css/sb-admin-2.css" rel="stylesheet">
+    <link href="<?php echo \App\Config::templateBasePath(); ?>assets/css/faculty-websites.css" rel="stylesheet">
 
     <!-- Morris Charts CSS -->
-    <link href="assets/templates/admin2/bower_components/morrisjs/morris.css" rel="stylesheet">
+    <link href="<?php echo \App\Config::templateBasePath(); ?>assets/templates/admin2/bower_components/morrisjs/morris.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
-    <link href="assets/templates/admin2/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="<?php echo \App\Config::templateBasePath(); ?>assets/templates/admin2/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -247,7 +248,7 @@
                 </li>
                 <!-- /.dropdown -->
                 <?php
-					$segment = $this->session->getSegment('app');
+					$segment = \App\Factory::getSession()->getSegment('app');
                 ?>
                 <?php if (!empty($segment->get('authenticated'))) : ?>
                 <li class="dropdown">
@@ -293,8 +294,9 @@
                             <!-- /input-group -->
                         </li>
                         <li>
-                            <a href="index.php"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                            <a href="<?php echo \App\Config::templateBasePath(); ?>"><i class="fa fa-dashboard fa-fw"></i> Instructors</a>
                         </li>
+                        <!--
                         <li>
                             <a href="foo"><i class="fa fa-bar-chart-o fa-fw"></i> Foo</a>
 
@@ -327,9 +329,38 @@
                                     <a href="grid.html">Grid</a>
                                 </li>
                             </ul>
-                            <!-- /.nav-second-level -->
+
+
                         </li>
-                        <li>
+                        -->
+
+                        <?php if (isset($this->menu)) : ?>
+							<?php echo $this->menu; ?>
+                        <?php endif; ?>
+						<li>
+                            <a href="#"><i class="fa fa-sitemap fa-fw"></i> Quicklinks<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+								<li>
+		                            <a href="http://imperial.blackboard.com" target="_blank"><i class="fa fa-link fa-fw"></i> Blackboard</a>
+		                        </li>
+		                        <li>
+		                            <a href="http://outlook.imperial.edu" target="_blank"><i class="fa fa-link fa-fw"></i> IVC Email</a>
+		                        </li>
+		                        <li>
+		                            <a href="http://www.imperial.edu" target="_blank"><i class="fa fa-link fa-fw"></i> IVC Homepage</a>
+		                        </li>
+		                        <li>
+		                            <a href="http://syllabi.imperial.edu" target="_blank"><i class="fa fa-link fa-fw"></i> IVC Syllabi</a>
+		                        </li>
+								<li>
+		                            <a href="https://webstar.imperial.edu:7773/pls/ivc01/twbkwbis.P_WWWLogin" target="_blank"><i class="fa fa-link fa-fw"></i> WebSTAR</a>
+		                        </li>
+
+	                    	</ul>
+	                    </li>
+
+	                    <!--
+	                    <li>
                             <a href="#"><i class="fa fa-sitemap fa-fw"></i> Multi-Level Dropdown<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
@@ -354,10 +385,10 @@
                                             <a href="#">Third Level Item</a>
                                         </li>
                                     </ul>
-                                    <!-- /.nav-third-level -->
+
                                 </li>
                             </ul>
-                            <!-- /.nav-second-level -->
+
                         </li>
                         <li>
                             <a href="#"><i class="fa fa-files-o fa-fw"></i> Sample Pages<span class="fa arrow"></span></a>
@@ -373,8 +404,9 @@
                                     <a href="manual-submission">Manual File Submission</a>
                                 </li>
                             </ul>
-                            <!-- /.nav-second-level -->
+
                         </li>
+                        -->
                     </ul>
                 </div>
                 <!-- /.sidebar-collapse -->
@@ -384,7 +416,7 @@
 
         <div id="page-wrapper">
         	<?php
-				$segment = $this->session->getSegment('app');
+				$segment = \App\Factory::getSession()->getSegment('app');
 		    ?>
 		    <?php if (!empty($segment->getFlash('message'))) : ?>
         	<div class="row">
@@ -402,7 +434,7 @@
 			<?php endif; ?>
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header"><?= $title;?></h1>
+                    <h1 class="page-header"><?= $this->data->title;?></h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -410,7 +442,7 @@
             <?php if (isset($body)) : ?>
             <div class="row">
                 <div class="col-lg-12">
-					<pre><?= $body;?></pre>
+					<?= $body; ?>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -422,21 +454,21 @@
     <!-- /#wrapper -->
 
     <!-- jQuery -->
-    <script src="assets/templates/admin2/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="<?php echo \App\Config::templateBasePath(); ?>assets/templates/admin2/bower_components/jquery/dist/jquery.min.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="assets/templates/admin2/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="<?php echo \App\Config::templateBasePath(); ?>assets/templates/admin2/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 
     <!-- Metis Menu Plugin JavaScript -->
-    <script src="assets/templates/admin2/bower_components/metisMenu/dist/metisMenu.min.js"></script>
+    <script src="<?php echo \App\Config::templateBasePath(); ?>assets/templates/admin2/bower_components/metisMenu/dist/metisMenu.min.js"></script>
 
     <!-- Morris Charts JavaScript -->
-    <script src="assets/templates/admin2/bower_components/raphael/raphael-min.js"></script>
-    <script src="assets/templates/admin2/bower_components/morrisjs/morris.min.js"></script>
+    <script src="<?php echo \App\Config::templateBasePath(); ?>assets/templates/admin2/bower_components/raphael/raphael-min.js"></script>
+    <script src="<?php echo \App\Config::templateBasePath(); ?>assets/templates/admin2/bower_components/morrisjs/morris.min.js"></script>
     <!--<script src="assets/templates/admin2/js/morris-data.js"></script>-->
 
     <!-- Custom Theme JavaScript -->
-    <script src="assets/templates/admin2/dist/js/sb-admin-2.js"></script>
+    <script src="<?php echo \App\Config::templateBasePath(); ?>assets/templates/admin2/dist/js/sb-admin-2.js"></script>
 
 </body>
 

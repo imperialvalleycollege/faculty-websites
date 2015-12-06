@@ -14,5 +14,18 @@ class Factory
 
 		return $db;
 	}
+
+	public static function getSession()
+	{
+		$session_factory = new \Aura\Session\SessionFactory;
+		$session = $session_factory->newInstance($_COOKIE);
+
+		return $session;
+	}
+
+	public static function getTemplate()
+	{
+    	return 'code/templates/admin2.php';
+	}
 }
 

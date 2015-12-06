@@ -5,22 +5,14 @@ use League\Flysystem\Filesystem;
 use League\Flysystem\Adapter\Local;
 
 $app->get('/', function (ServerRequestInterface $request, ResponseInterface $response) {
-	$title = 'Homepage';
-	$query = $this->db->getQuery(true);
 
-	$query->select('*');
-	$query->from('users');
+	$model = new \App\Model\Homepage;
 
-	$this->db->setQuery($query);
+	$view = new \App\View\Homepage;
+	$view->setModel($model);
+	$view->setResponse($response);
 
-	$users = $this->db->loadObjectList();
-
-	$body = print_r($users, true);
-
-	ob_start();
-    include 'code/templates/admin2.php';
-
-	$response->write(ob_get_clean());
+	$view->render();
 
     return $response;
 })->setName('home');
@@ -169,4 +161,61 @@ $app->group('/api/1.0', function () {
 			}
 		}
 	});
+});
+
+$app->get('/{username}', function (ServerRequestInterface $request, ResponseInterface $response, $args) {
+	$username = $args['username'];
+
+	$model = new \App\Model\Instructor($username);
+	if ($model->isValid())
+	{
+		$view = new \App\View\Instructor;
+		//$view->setData('title', $username);
+		$view->setData('instructor', $username);
+		$view->setModel($model);
+		$view->setRequest($request);
+		$view->setResponse($response);
+
+		$view->render();
+
+	    return $response;
+	}
+	else
+	{
+		// Doesn't actually get displayed
+		//$segment = $this->session->getSegment('app');
+		//$segment->setFlash('message', 'Invalid Instructor');
+		//$segment->setFlash('message-status', 'warning');
+		return $response->withRedirect($this->router->pathFor('home'))->withStatus(303);
+	}
+
+});
+
+$app->get('/{username}/{course}', function (ServerRequestInterface $request, ResponseInterface $response, $args) {
+	$username = $args['username'];
+	$course = $args['course'];
+
+	$model = new \App\Model\Instructor($username);
+	if ($model->isValid())
+	{
+		$view = new \App\View\Course;
+		$view->setData('title', strtoupper(str_replace('-', ' ', $course)));
+		$view->setData('instructor', $username);
+		$view->setModel($model);
+		$view->setRequest($request);
+		$view->setResponse($response);
+
+		$view->render();
+
+	    return $response;
+	}
+	else
+	{
+		// Doesn't actually get displayed
+		//$segment = $this->session->getSegment('app');
+		//$segment->setFlash('message', 'Invalid Instructor');
+		//$segment->setFlash('message-status', 'warning');
+		return $response->withRedirect($this->router->pathFor('home'))->withStatus(303);
+	}
+
 });
